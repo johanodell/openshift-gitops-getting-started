@@ -1,0 +1,51 @@
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  name: test
+  namespace: test
+    - manager: cluster-policy-controller
+      operation: Update
+      apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:hard':
+            .: {}
+            'f:limits.cpu': {}
+            'f:limits.memory': {}
+            'f:pods': {}
+            'f:requests.cpu': {}
+            'f:requests.memory': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:used':
+            .: {}
+            'f:limits.cpu': {}
+            'f:limits.memory': {}
+            'f:pods': {}
+            'f:requests.cpu': {}
+            'f:requests.memory': {}
+spec:
+  hard:
+    limits.cpu: '2'
+    limits.memory: 2Gi
+    pods: '4'
+    requests.cpu: '1'
+    requests.memory: 1Gi
+status:
+  hard:
+    limits.cpu: '2'
+    limits.memory: 2Gi
+    pods: '4'
+    requests.cpu: '1'
+    requests.memory: 1Gi
+  used:
+    limits.cpu: '0'
+    limits.memory: '0'
+    pods: '0'
+    requests.cpu: '0'
+    requests.memory: '0'
